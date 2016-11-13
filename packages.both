@@ -82,4 +82,4 @@ archlinuxcn-keyring
 xorg-server
 xorg-xinit
 xf86-input-libinput
-xf86-video-vesa
+xorg-drivers
