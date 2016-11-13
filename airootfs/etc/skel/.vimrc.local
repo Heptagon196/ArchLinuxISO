@@ -1,0 +1,3 @@
+hi Normal ctermbg=0 ctermfg=white
+set wrap
+set nospell
