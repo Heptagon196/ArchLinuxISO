@@ -85,3 +85,4 @@ xorg-xinit
 xf86-input-libinput
 xorg-drivers
 paper-icon-theme-git
+gnome-tweak-tool
