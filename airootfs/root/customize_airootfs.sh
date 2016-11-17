@@ -4,6 +4,15 @@ passwd archuser
 usermod -s /usr/bin/zsh archuser
 cp -aT /etc/skel/ /home/archuser/
 visudo
+curl -L -O http://archibold.io/sh/archibold
+chmod +x archibold
+mv archibold /usr/bin
+archibold login-background /home/archuser/.background.png
+sudo -u archuser gsettings set org.gnome.desktop.background picture-uri /home/archuser/.background.png
+sudo -u archuser gsettings set org.gnome.desktop.interface gtk-theme VimixDark
+sudo -u archuser gsettings set org.gnome.desktop.interface icon-theme Paper
+sudo -u archuser gsettings set org.gnome.desktop.interface font-name 'Ubuntu 11'
+sudo -u archuser gsettings set org.gnome.shell enabled-extensions "['activities-config@nls1729', 'arch-update@RaphaelRochet', 'CoverflowAltTab@dmo60.de', 'scroll-workspaces@gfxmonk.net', 'TopIcons@phocean.net', 'user-theme@gnome-shell-extensions.gcampax.github.com', 'dash-to-dock@micxgx.gmail.com', 'windowsNavigator@gnome-shell-extensions.gcampax.github.com', 'pixel-saver@deadalnix.me']"
 
 set -e -u
 
