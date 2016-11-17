@@ -1,2 +1,0 @@
-[2016-11-17 15:52] [PACMAN] Running 'pacman -r work/i686/airootfs -Sy --noconfirm --config=work/pacman.conf base syslinux'
-[2016-11-17 15:52] [PACMAN] synchronizing package lists
