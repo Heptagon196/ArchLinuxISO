@@ -3,6 +3,7 @@ useradd -m -g users -s /bin/bash archuser
 passwd archuser
 usermod -s /usr/bin/zsh archuser
 cp -aT /etc/skel/ /home/archuser/
+visudo
 
 set -e -u
 
@@ -29,4 +30,4 @@ systemctl enable pacman-init.service choose-mirror.service
 systemctl set-default graphical.target
 systemctl enable NetworkManager.service
 
-passwd -u root
+passwd root
