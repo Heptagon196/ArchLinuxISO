@@ -1,4 +1,8 @@
 #!/bin/bash
+useradd -m -g users -s /bin/bash archuser
+passwd archuser
+usermod -s /usr/bin/zsh archuser
+cp -aT /etc/skel/ /home/archuser/
 
 set -e -u
 

@@ -1,28 +1,22 @@
-# Path to your oh-my-zsh installation.
-export ZSH=/home/eric/.oh-my-zsh
-alias ydcv='python ~/.ydcv.py'
-alias cxrun='/opt/cxoffice/bin/cxrun --bottle=Wine'
-alias xware='~/.start_xware.sh'
-alias thunder='chromium --app=http://yuancheng.xunlei.com'
-alias xx-net='~/.XX-net/start'
-alias play='you-get -p baka-mplayer'
-alias wifi='sudo create_ap wlp4s0 enp3s0 WiFi196 1234567890'
-alias gbk='iconv -f gbk -t utf8'
-alias find='find 2>/dev/null'
-alias ftp='~/.PyFtp/ftp'
-alias bright='pkexec /usr/lib/gnome-settings-daemon/gsd-backlight-helper --set-brightness'
-alias vpn='export http_proxy=http://127.0.0.1:8087/
-export https_proxy=$http_proxy
-export HTTP_PROXY=$http_proxy
-export HTTPS_PROXY=$HTTP_PROXY'
-alias wine='wine 2>/dev/null'
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
+# Path to your oh-my-zsh installation.
+  export ZSH=~/.oh-my-zsh
+  alias vpn='
+  export http_proxy=http://127.0.0.1:8087
+  export https_proxy=$http_proxy
+  export HTTP_PROXY=$http_proxy
+  export HTTPS_PROXY=$http_proxy
+  '
+  alias pdf='libreoffice --convert-to pdf'
+  alias Ftp='~/.FTP/ftp'
+
+# Set name of the theme to load. Optionally, if you set this to "random"
+# it'll load a random theme each time that oh-my-zsh is loaded.
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="robbyrussell"
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -66,21 +60,20 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(zsh-syntax-highlighting colored-man-pages)
+plugins=(zsh-syntax-highlighting)
+
+source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-# export PATH="/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
-
-source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
-export EDITOR='vim'
+#   export EDITOR='vim'
 # else
 #   export EDITOR='mvim'
 # fi
@@ -99,4 +92,3 @@ export EDITOR='vim'
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-# source /home/eric/.oh-my-zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

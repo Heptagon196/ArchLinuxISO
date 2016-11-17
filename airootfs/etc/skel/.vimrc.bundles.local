@@ -1,1 +1,5 @@
-Bundle 'majutsushi/tagbar'
+Bundle 'octol/vim-cpp-enhanced-highlight'
+Bundle 'SirVer/ultisnips'
+Bundle 'scrooloose/nerdcommenter'
+"Bundle 'vim-scripts/AutoComplPop'
+Bundle 'kana/vim-smartinput'

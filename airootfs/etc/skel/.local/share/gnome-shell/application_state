@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<application-state>
+  <context id="">
+    <application id="chromium.desktop" open-window-count="1" score="10613" last-seen="1479345974"/>
+    <application id="designer.desktop" open-window-count="0" score="18" last-seen="1479044318"/>
+    <application id="libreoffice-calc.desktop" open-window-count="0" score="8" last-seen="1479130411"/>
+    <application id="variety.desktop" open-window-count="0" score="166" last-seen="1479300106"/>
+    <application id="libreoffice-impress.desktop" open-window-count="0" score="105" last-seen="1479341908"/>
+    <application id="vlc.desktop" open-window-count="0" score="0" last-seen="1479114465"/>
+    <application id="linguist-qt4.desktop" open-window-count="0" score="8" last-seen="1478862297"/>
+    <application id="org.gnome.FileRoller.desktop" open-window-count="0" score="8" last-seen="1479129248"/>
+    <application id="bvnc.desktop" open-window-count="0" score="0" last-seen="1479114409"/>
+    <application id="gthumb.desktop" open-window-count="0" score="25" last-seen="1479340874"/>
+    <application id="org.gnome.gedit.desktop" open-window-count="1" score="422" last-seen="1479346026"/>
+    <application id="gnome-system-monitor.desktop" open-window-count="0" score="22" last-seen="1479209489"/>
+    <application id="gnome-appfolders-manager.desktop" open-window-count="0" score="32" last-seen="1479340739"/>
+    <application id="org.gnome.Terminal.desktop" open-window-count="3" score="23363" last-seen="1479346087"/>
+    <application id="designer-qt4.desktop" open-window-count="0" score="0" last-seen="1478863841"/>
+    <application id="libreoffice-writer.desktop" open-window-count="0" score="41" last-seen="1479277913"/>
+    <application id="gnome-control-center.desktop" open-window-count="0" score="43" last-seen="1479299952"/>
+    <application id="libreoffice-startcenter.desktop" open-window-count="0" score="0" last-seen="1479341914"/>
+    <application id="wine.desktop" open-window-count="1" score="337" last-seen="1479345860"/>
+    <application id="bcloud.desktop" open-window-count="0" score="12" last-seen="1478931976"/>
+    <application id="qtcreator.desktop" open-window-count="0" score="165" last-seen="1478867790"/>
+    <application id="virtualbox.desktop" open-window-count="0" score="829" last-seen="1479302097"/>
+    <application id="gcr-viewer.desktop" open-window-count="0" score="5" last-seen="1479208837"/>
+    <application id="jetbrains-clion.desktop" open-window-count="0" score="99" last-seen="1479201013"/>
+    <application id="bssh.desktop" open-window-count="0" score="0" last-seen="1479114413"/>
+    <application id="libreoffice-math.desktop" open-window-count="0" score="31" last-seen="1479342134"/>
+    <application id="org.gnome.Nautilus.desktop" open-window-count="1" score="1659" last-seen="1479345211"/>
+    <application id="evince.desktop" open-window-count="0" score="572" last-seen="1479289127"/>
+    <application id="gnome-shell-extension-prefs.desktop" open-window-count="0" score="144" last-seen="1479340801"/>
+    <application id="gnome-tweak-tool.desktop" open-window-count="0" score="81" last-seen="1479340851"/>
+  </context>
+</application-state>

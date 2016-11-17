@@ -3,7 +3,8 @@
 -    gnome
 -    nautilus
 -    gnome-terminal
--    chromium
+-    firefox
 -    python
 -    vim (spf13-vim)
 -    zsh (oh-my-zsh)
+用户archuser密码为123456

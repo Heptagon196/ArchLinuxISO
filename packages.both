@@ -62,10 +62,11 @@ wvdial
 xl2tpd
 zd1211-firmware
 
+infinality-bundle
+ttf-ubuntu-font-family-ib
 base-devel
 git
 vim
-adobe-source-code-pro-fonts
 networkmanager
 zip
 unzip
@@ -76,10 +77,11 @@ nautilus
 gnome-terminal
 gnome-shell
 gdm
-chromium
+firefox
 file-roller
 archlinuxcn-keyring
 xorg-server
 xorg-xinit
 xf86-input-libinput
 xorg-drivers
+paper-icon-theme-git
