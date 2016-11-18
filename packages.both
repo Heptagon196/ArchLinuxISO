@@ -86,3 +86,7 @@ xf86-input-libinput
 xorg-drivers
 paper-icon-theme-git
 gnome-tweak-tool
+ibus
+ibus-rime
+gnome-control-center
+gnome-shell-extensions
