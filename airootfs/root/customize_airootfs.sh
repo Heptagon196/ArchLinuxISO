@@ -7,7 +7,6 @@ visudo
 curl -L -O http://archibold.io/sh/archibold
 chmod +x archibold
 mv archibold /usr/bin
-zsh
 
 set -e -u
 
@@ -35,3 +34,4 @@ systemctl set-default graphical.target
 systemctl enable NetworkManager.service
 
 passwd root
+zsh

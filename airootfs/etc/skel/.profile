@@ -1,0 +1,1 @@
+dconf load / < .gnome-settings
