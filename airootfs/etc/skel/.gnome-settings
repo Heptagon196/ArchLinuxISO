@@ -749,12 +749,12 @@ user-switch-enabled=true
 
 [org/gnome/desktop/peripherals/touchpad]
 send-events='enabled'
-natural-scroll=true
+natural-scroll=false
 two-finger-scrolling-enabled=true
 left-handed='mouse'
 click-method='default'
 speed=0.0
-tap-to-click=false
+tap-to-click=true
 edge-scrolling-enabled=false
 
 [org/gnome/desktop/peripherals/trackball]
