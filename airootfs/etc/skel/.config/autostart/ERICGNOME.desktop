@@ -2,5 +2,5 @@
 Encoding=UTF-8
 Type=Application
 Exec=ericgnome.sh
-Name=XX-net
+Name=EricGNOME
 Hidden=false
