@@ -3,10 +3,7 @@ useradd -m -g users -s /bin/bash archuser
 passwd archuser
 usermod -s /usr/bin/zsh archuser
 cp -aT /etc/skel/ /home/archuser/
-visudo
-curl -L -O http://archibold.io/sh/archibold
-chmod +x archibold
-mv archibold /usr/bin
+echo "archuser ALL=(ALL) ALL" >> /etc/sudoers
 
 set -e -u
 
@@ -34,4 +31,8 @@ systemctl set-default graphical.target
 systemctl enable NetworkManager.service
 
 passwd root
+vim /usr/share/applications/org.gnome.Nautilus.desktop
+echo "#!/bin/sh" > /usr/bin/ericgnome.sh
+echo "dconf load / < /home/archuser/.gnome-settings" >> /usr/bin/ericgnome.sh
+chmod +x /usr/bin/ericgnome.sh
 zsh
