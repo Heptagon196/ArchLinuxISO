@@ -15,7 +15,6 @@ ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 hwclock --systohc --utc
 
 usermod -s /usr/bin/zsh root
-cp -aT /etc/skel/ /root/
 chmod 700 /root
 
 sed -i 's/#\(PermitRootLogin \).\+/\1yes/' /etc/ssh/sshd_config
@@ -32,7 +31,6 @@ systemctl enable NetworkManager.service
 
 passwd root
 vim /usr/share/applications/org.gnome.Nautilus.desktop
-echo "#!/bin/sh" > /usr/bin/ericgnome.sh
-echo "dconf load / < /home/archuser/.gnome-settings" >> /usr/bin/ericgnome.sh
+cp /home/archuser/.ericgnome.sh /usr/bin/ericgnome.sh
 chmod +x /usr/bin/ericgnome.sh
 zsh

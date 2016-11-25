@@ -711,7 +711,7 @@ apps=['linguist.desktop', 'linguist-qt4.desktop', 'designer.desktop', 'qdbusview
 name='Qt'
 
 [org/gnome/desktop/app-folders/folders/Others]
-apps=['elinks.desktop', 'CMake.desktop', 'Cena.desktop', 'XXNET.desktop', 'nutstore.desktop', 'bssh.desktop', 'gnome-appfolders-manager.desktop', 'Uninstall Cena.desktop', 'ibus-setup.desktop', 'bvnc.desktop', 'avahi-discover.desktop']
+apps=['elinks.desktop', 'CMake.desktop', 'Cena.desktop', 'XXNET.desktop', 'nutstore.desktop', 'bssh.desktop', 'gnome-appfolders-manager.desktop', 'Uninstall Cena.desktop', 'ibus-setup.desktop', 'bvnc.desktop', 'avahi-discover.desktop', 'zenmap.desktop', 'zenmap-root.desktop']
 name='Others'
 
 [org/gnome/desktop/notifications]

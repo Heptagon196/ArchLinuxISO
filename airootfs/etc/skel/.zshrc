@@ -3,15 +3,6 @@
 
 # Path to your oh-my-zsh installation.
   export ZSH=~/.oh-my-zsh
-  alias vpn='
-  export http_proxy=http://127.0.0.1:8087
-  export https_proxy=$http_proxy
-  export HTTP_PROXY=$http_proxy
-  export HTTPS_PROXY=$http_proxy
-  '
-  alias pdf='libreoffice --convert-to pdf'
-  alias Ftp='~/.FTP/ftp'
-
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
