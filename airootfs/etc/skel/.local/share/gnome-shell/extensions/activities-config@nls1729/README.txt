@@ -331,6 +331,9 @@ https://nls1729.github.io
            removed GS development versions from metadata.json
            uploaded for review
 
-zip file: Tue Nov  1 14:09:13 EDT 2016 43b4afd2be06730187782486dde7a610950006a3
+2016-11-23 Activities Configurator - updated copyright due to fsf address change
+           Removed address and added license url instead. Uploaded for review.
+
+zip file: Wed Nov 23 17:48:09 EST 2016 5b2d6072f82a98d527bbefc5a62e0be9e6736925
 
 ...

@@ -1,6 +1,5 @@
-/*global global, log */ // <-- jshint
-/*jshint maxlen: 150 */
-/* @overview
+/**
+ * @overview
  * Pixel Saver v1.0
  * Amaury SECHET <deadalnix@gmail.com>
  * Other contributors:
@@ -53,13 +52,13 @@ const AppMenu = Me.imports.app_menu;
 function init(extensionMeta) {
 	//Buttons.init(extensionMeta);
 	Decoration.init(extensionMeta);
-	AppMenu.init(extensionMeta);
+    AppMenu.init(extensionMeta);
 }
 
 function enable() {
 	//Buttons.enable();
 	Decoration.enable();
-	AppMenu.enable();
+    AppMenu.enable();
 }
 
 function disable() {

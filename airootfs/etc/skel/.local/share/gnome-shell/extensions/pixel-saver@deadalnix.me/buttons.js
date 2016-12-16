@@ -18,7 +18,7 @@ function WARN(message) {
 	log("[pixel-saver]: " + message);
 }
 
-/*
+/**
  * Buttons
  */
 const DCONF_META_PATH = 'org.gnome.desktop.wm.preferences';
@@ -28,12 +28,19 @@ function createButtons() {
 	// Ensure we do not create buttons twice.
 	destroyButtons();
 	
-	actors = [new St.Bin({ style_class: 'box-bin'}), new St.Bin({ style_class: 'box-bin'})];
-	boxes = [new St.BoxLayout({ style_class: 'button-box' }), new St.BoxLayout({ style_class: 'button-box' })];
+	actors = [
+		new St.Bin({ style_class: 'box-bin'}),
+		new St.Bin({ style_class: 'box-bin'})
+	];
 	
-	for (let i = 0; i < actors.length; ++i) {
-		actors[i].add_actor(boxes[i]);
-	}
+	boxes = [
+		new St.BoxLayout({ style_class: 'button-box' }),
+		new St.BoxLayout({ style_class: 'button-box' })
+	];
+	
+	actors.forEach(function(actor, i) {
+		actor.add_actor(boxes[i]);
+	});
 	
 	let order = new Gio.Settings({schema_id: DCONF_META_PATH}).get_string('button-layout');
 	LOG('Buttons layout : ' + order);
@@ -90,22 +97,22 @@ function createButtons() {
 }
 
 function destroyButtons() {
-	for (let i = 0; i < actors.length; ++i) {
-		actors[i].destroy();
+	actors.forEach(function(actor, i) {
+		actor.destroy();
 		boxes[i].destroy();
-	}
+	});
 	
 	actors = [];
 	boxes = [];
 }
 
-/*
+/**
  * Buttons actions
  */
 function leftclick(callback) {
 	return function(actor, event) {
 		if (event.get_button() !== 1) {
-			return;
+			return null;
 		}
 		
 		return callback(actor, event);
@@ -150,7 +157,7 @@ function close() {
 	win.delete(global.get_current_time());
 }
 
-/*
+/**
  * Theming
  */
 let activeCSS = false;
@@ -174,9 +181,9 @@ function loadTheme() {
 	St.ThemeContext.get_for_stage(global.stage).get_theme().load_stylesheet(cssFile);
 	
 	// Force style update.
-	for (let i = 0; i < actors.length; ++i) {
-		actors[i].grab_key_focus();
-	}
+	actors.forEach(function(actor) {
+		actor.grab_key_focus();
+	});
 	
 	activeCSS = cssPath;
 }
@@ -191,7 +198,7 @@ function unloadTheme() {
 	}
 }
 
-/*
+/**
  * callbacks
  */
 function updateVisibility() {
@@ -205,23 +212,22 @@ function updateVisibility() {
 		}
 	}
 	
-	for (let i = 0; i < actors.length; ++i) {
-		let actor = actors[i];
-		if(!boxes[i].get_children().length) {
-			continue;
+	actors.forEach(function(actor, i) {
+		if (!boxes[i].get_children().length) {
+			return;
 		}
 		
-		if(visible) {
+		if (visible) {
 			actor.show();
 		} else {
 			actor.hide();
 		}
-	}
+	});
 	
 	return false;
 }
 
-/*
+/**
  * Subextension hooks
  */
 let extensionPath;
@@ -231,6 +237,7 @@ function init(extensionMeta) {
 
 let wmCallbackIDs = [];
 let overviewCallbackIDs = [];
+
 function enable() {
 	createButtons();
 	loadTheme();
@@ -238,33 +245,23 @@ function enable() {
 	overviewCallbackIDs.push(Main.overview.connect('showing', updateVisibility));
 	overviewCallbackIDs.push(Main.overview.connect('hidden', updateVisibility));
 	
-	wmCallbackIDs.push(global.window_manager.connect('switch-workspace', updateVisibility));
-	wmCallbackIDs.push(global.window_manager.connect('map', updateVisibility));
-	wmCallbackIDs.push(global.window_manager.connect('minimize', updateVisibility));
-	wmCallbackIDs.push(global.window_manager.connect('unminimize', updateVisibility));
-	try {
-		// Gnome 3.16
-		wmCallbackIDs.push(global.window_manager.connect('maximize', updateVisibility));
-		wmCallbackIDs.push(global.window_manager.connect('unmaximize', updateVisibility));
-	} catch (e) {
-		// Gnome 3.18
-		wmCallbackIDs.push(global.window_manager.connect('size-change', updateVisibility));
-	}
+	let wm = global.window_manager;
+	wmCallbackIDs.push(wm.connect('switch-workspace', updateVisibility));
+	wmCallbackIDs.push(wm.connect('map', updateVisibility));
+	wmCallbackIDs.push(wm.connect('minimize', updateVisibility));
+	wmCallbackIDs.push(wm.connect('unminimize', updateVisibility));
 	
-	// note: 'destroy' needs a delay for .list_windows() report correctly
-	wmCallbackIDs.push(global.window_manager.connect('destroy', function () {
-		Mainloop.idle_add(updateVisibility);
-	}));
+	wmCallbackIDs = wmCallbackIDs.concat(Util.onSizeChange(updateVisibility));
 }
 
 function disable() {
-	for (let i = 0; i < wmCallbackIDs.length; ++i) {
-		global.window_manager.disconnect(wmCallbackIDs[i]);
-	}
+	wmCallbackIDs.forEach(function(id) {
+		global.window_manager.disconnect(id);
+	});
 	
-	for (let i = 0; i < overviewCallbackIDs.length; ++i) {
-		Main.overview.disconnect(overviewCallbackIDs[i]);
-	}
+	overviewCallbackIDs.forEach(function(id) {
+		Main.overview.disconnect(id);
+	});
 	
 	wmCallbackIDs = [];
 	overviewCallbackIDs = [];

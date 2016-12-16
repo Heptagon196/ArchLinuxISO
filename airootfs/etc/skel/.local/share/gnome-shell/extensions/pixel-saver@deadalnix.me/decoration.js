@@ -11,7 +11,8 @@ function WARN(message) {
 	log("[pixel-saver]: " + message);
 }
 
-/** Guesses the X ID of a window.
+/**
+ * Guesses the X ID of a window.
  *
  * It is often in the window's title, being `"0x%x %10s".format(XID, window.title)`.
  * (See `mutter/src/core/window-props.c`).
@@ -35,7 +36,8 @@ function guessWindowXID(win) {
 		return win._pixelSaverWindowID;
 	}
 	
-	/* if window title has non-utf8 characters, get_description() complains
+	/**
+	 * If window title has non-utf8 characters, get_description() complains
 	 * "Failed to convert UTF-8 string to JS string: Invalid byte sequence in conversion input",
 	 * event though get_title() works.
 	 */
@@ -53,8 +55,9 @@ function guessWindowXID(win) {
 		let xwininfo = GLib.spawn_command_line_sync('xwininfo -children -id 0x%x'.format(xwindow));
 		if (xwininfo[0]) {
 			let str = xwininfo[1].toString();
-
-			/* The X ID of the window is the one preceding the target window's title.
+			
+			/**
+			 * The X ID of the window is the one preceding the target window's title.
 			 * This is to handle cases where the window has no frame and so
 			 * act['x-window'] is actually the X ID we want, not the child.
 			 */
@@ -63,15 +66,15 @@ function guessWindowXID(win) {
 			if (m && m[1]) {
 				return win._pixelSaverWindowID = m[1];
 			}
-
-			/* Otherwise, just grab the child and hope for the best */
+			
+			// Otherwise, just grab the child and hope for the best
 			m = str.split(/child(?:ren)?:/)[1].match(/0x[0-9a-f]+/);
 			if (m && m[0]) {
 				return win._pixelSaverWindowID = m[0];
 			}
 		}
 	}
-
+	
 	// Try enumerating all available windows and match the title. Note that this
 	// may be necessary if the title contains special characters and `x-window`
 	// is not available.
@@ -79,16 +82,16 @@ function guessWindowXID(win) {
 	LOG('xprop -root _NET_CLIENT_LIST')
 	if (result[0]) {
 		let str = result[1].toString();
-
+		
 		// Get the list of window IDs.
 		let windowList = str.match(/0x[0-9a-f]+/g);
-
+		
 		// For each window ID, check if the title matches the desired title.
 		for (var i = 0; i < windowList.length; ++i) {
 			let cmd = 'xprop -id "' + windowList[i] + '" _NET_WM_NAME _PIXEL_SAVER_ORIGINAL_STATE';
 			let result = GLib.spawn_command_line_sync(cmd);
 			LOG(cmd);
-
+			
 			if (result[0]) {
 				let output = result[1].toString();
 				let isManaged = output.indexOf("_PIXEL_SAVER_ORIGINAL_STATE(CARDINAL)") > -1;
@@ -129,7 +132,7 @@ function getOriginalState(win) {
 	if (win._pixelSaverOriginalState !== undefined) {
 		return win._pixelSaverOriginalState;
 	}
-
+	
 	if (!win.decorated) {
 		return win._pixelSaverOriginalState = WindowState.UNDECORATED;
 	}
@@ -147,7 +150,9 @@ function getOriginalState(win) {
 	let str = xprops[1].toString();
 	let m = str.match(/^_PIXEL_SAVER_ORIGINAL_STATE\(CARDINAL\) = ([0-9]+)$/m);
 	if (m) {
-		return win._pixelSaverOriginalState = !!m[1] ? WindowState.HIDE_TITLEBAR : WindowState.DEFAULT;
+		return win._pixelSaverOriginalState = !!m[1]
+			? WindowState.HIDE_TITLEBAR
+			: WindowState.DEFAULT;
 	}
 	
 	m = str.match(/^_GTK_HIDE_TITLEBAR_WHEN_MAXIMIZED(\(CARDINAL\))? = ([0-9]+)$/m);
@@ -159,11 +164,13 @@ function getOriginalState(win) {
 		      (state ? '0x1' : '0x0')];
 		LOG(cmd.join(' '));
 		Util.spawn(cmd);
-		return win._pixelSaverOriginalState = state ? WindowState.HIDE_TITLEBAR : WindowState.DEFAULT;
+		return win._pixelSaverOriginalState = state
+			? WindowState.HIDE_TITLEBAR
+			: WindowState.DEFAULT;
 	}
 	
 	WARN("Can't find original state for " + win.title + " with id " + id);
-
+	
 	// GTK uses the _GTK_HIDE_TITLEBAR_WHEN_MAXIMIZED atom to indicate that the
 	// title bar should be hidden when maximized. If we can't find this atom, the
 	// window uses the default behavior
@@ -191,7 +198,8 @@ function setHideTitlebar(win, hide) {
 	// Make sure we save the state before altering it.
 	getOriginalState(win);
 	
-	/* Undecorate with xprop. Use _GTK_HIDE_TITLEBAR_WHEN_MAXIMIZED.
+	/**
+	 * Undecorate with xprop. Use _GTK_HIDE_TITLEBAR_WHEN_MAXIMIZED.
 	 * See (eg) mutter/src/window-props.c
 	 */
 	let cmd = ['xprop', '-id', guessWindowXID(win),
@@ -226,7 +234,8 @@ function setHideTitlebar(win, hide) {
 }
 
 /**** Callbacks ****/
-/** Callback when a window is added in any of the workspaces.
+/**
+ * Callback when a window is added in any of the workspaces.
  * This includes a window switching to another workspace.
  *
  * If it is a window we already know about, we do nothing.
@@ -290,7 +299,8 @@ function onWindowAdded(ws, win, retry) {
 
 let workspaces = [];
 
-/** Callback whenever the number of workspaces changes.
+/**
+ * Callback whenever the number of workspaces changes.
  *
  * We ensure that we are listening to the 'window-added' signal on each of
  * the workspaces.
@@ -298,14 +308,9 @@ let workspaces = [];
  * @see onWindowAdded
  */
 function onChangeNWorkspaces() {
-	let i = workspaces.length;
-	while (i--) {
-		let ws = workspaces[i];
-		ws.disconnect(ws._pixelSaverWindowAddedId);
-	}
+	cleanWorkspaces();
 	
-	workspaces = [];
-	i = global.screen.n_workspaces;
+	let i = global.screen.n_workspaces;
 	while (i--) {
 		let ws = global.screen.get_workspace_by_index(i);
 		workspaces.push(ws);
@@ -319,35 +324,50 @@ function onChangeNWorkspaces() {
 	return false;
 }
 
-/*
+/**
+ * Utilities
+ */
+function cleanWorkspaces() {
+	// disconnect window-added from workspaces
+	workspaces.forEach(function(ws) {
+		ws.disconnect(ws._pixelSaverWindowAddedId);
+		delete ws._pixelSaverWindowAddedId;
+	});
+	
+	workspaces = [];
+}
+
+function forEachWindow(callback) {
+	global.get_window_actors()
+		.map(function (w) { return w.meta_window; })
+		.filter(function(w) { return w.window_type !== Meta.WindowType.DESKTOP; })
+		.forEach(callback);
+}
+
+/**
  * Subextension hooks
  */
 function init() {}
 
 let changeWorkspaceID = 0;
 function enable() {
-	/* Connect events */
+	// Connect events
 	changeWorkspaceID = global.screen.connect('notify::n-workspaces', onChangeNWorkspaces);
 	
-	/* Go through already-maximised windows & undecorate.
+	/**
+	 * Go through already-maximised windows & undecorate.
 	 * This needs a delay as the window list is not yet loaded
-	 *  when the extension is loaded.
+	 * when the extension is loaded.
 	 * Also, connect up the 'window-added' event.
 	 * Note that we do not connect this before the onMaximise loop
-	 *  because when one restarts the gnome-shell, window-added gets
-	 *  fired for every currently-existing window, and then
-	 *  these windows will have onMaximise called twice on them.
+	 * because when one restarts the gnome-shell, window-added gets
+	 * fired for every currently-existing window, and then
+	 * these windows will have onMaximise called twice on them.
 	 */
 	Mainloop.idle_add(function () {
-		let winList = global.get_window_actors().map(function (w) { return w.meta_window; }),
-			i       = winList.length;
-		while (i--) {
-			let win = winList[i];
-			if (win.window_type === Meta.WindowType.DESKTOP) {
-				continue;
-			}
+		forEachWindow(function(win) {
 			onWindowAdded(null, win);
-		}
+		});
 		
 		onChangeNWorkspaces();
 		return false;
@@ -360,22 +380,9 @@ function disable() {
 		changeWorkspaceID = 0;
 	}
 	
-	/* disconnect window-added from workspaces */
-	let i = workspaces.length;
-	while (i--) {
-		workspaces[i].disconnect(workspaces[i]._pixelSaverWindowAddedId);
-		delete workspaces[i]._pixelSaverWindowAddedId;
-	}
-	workspaces = [];
+	cleanWorkspaces();
 	
-	let winList = global.get_window_actors().map(function (w) { return w.meta_window; }),
-		i       = winList.length;
-	while (i--) {
-		let win = winList[i];
-		if (win.window_type === Meta.WindowType.DESKTOP) {
-			continue;
-		}
-		
+	forEachWindow(function(win) {
 		let state = getOriginalState(win);
 		LOG('stopUndecorating: ' + win.title + ' original=' + state);
 		if (state == WindowState.DEFAULT) {
@@ -383,6 +390,6 @@ function disable() {
 		}
 		
 		delete win._pixelSaverOriginalState;
-	}
+	});
 }
 
